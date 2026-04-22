@@ -482,7 +482,6 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
 }
 
 .gallery-overlay {
@@ -504,10 +503,6 @@ ul {
   font-size: 2rem;
   transform: scale(0.5);
   transition: var(--transition);
-}
-
-.gallery-item:hover img {
-  transform: scale(1);
 }
 
 .gallery-item:hover .gallery-overlay {
