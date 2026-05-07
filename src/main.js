@@ -165,6 +165,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Service Tab Switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-tab');
+
+      // Update buttons
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Update panels
+      tabPanels.forEach(panel => {
+        panel.classList.remove('active');
+      });
+      const activePanel = document.getElementById(`panel-${target}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+
+        // Re-trigger scroll-reveal for newly visible cards
+        const newCards = activePanel.querySelectorAll('.scroll-reveal:not(.visible)');
+        newCards.forEach(el => revealOnScroll.observe(el));
+      }
+    });
+  });
+
   // Contact Form to WhatsApp
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
