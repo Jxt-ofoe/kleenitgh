@@ -133,37 +133,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Autoplay one gallery video at a time using IntersectionObserver
+  // Hover-to-play for desktop, tap-to-play for mobile
   const galleryVideos = document.querySelectorAll('.gallery-grid video');
+  const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
 
-  const playMostVisible = () => {
-    let bestVideo = null;
-    let bestRatio = 0;
+  galleryVideos.forEach(video => {
+    // Ensure video is fully loaded/ready (fixes vid3 mobile issue)
+    video.load();
 
-    galleryVideos.forEach(video => {
-      const rect = video.getBoundingClientRect();
-      const viewH = window.innerHeight || document.documentElement.clientHeight;
-      const visibleH = Math.min(rect.bottom, viewH) - Math.max(rect.top, 0);
-      const ratio = visibleH > 0 ? visibleH / rect.height : 0;
-
-      if (ratio > bestRatio) {
-        bestRatio = ratio;
-        bestVideo = video;
-      }
-    });
-
-    galleryVideos.forEach(video => {
-      if (video === bestVideo && bestRatio > 0.3) {
-        if (video.paused) video.play().catch(() => {});
-      } else {
-        if (!video.paused) video.pause();
-      }
-    });
-  };
-
-  // Run on scroll and on load
-  window.addEventListener('scroll', playMostVisible, { passive: true });
-  playMostVisible();
+    if (!isTouchDevice()) {
+      // Desktop: play on hover, pause on leave
+      video.addEventListener('mouseenter', () => {
+        // Pause all other videos first
+        galleryVideos.forEach(v => { if (v !== video && !v.paused) v.pause(); });
+        video.play().catch(() => {});
+      });
+      video.addEventListener('mouseleave', () => {
+        video.pause();
+      });
+    } else {
+      // Mobile: tap to toggle play/pause
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          // Pause all others
+          galleryVideos.forEach(v => { if (v !== video && !v.paused) v.pause(); });
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }
+  });
 
   // Contact Form to WhatsApp
   const contactForm = document.getElementById('contact-form');
