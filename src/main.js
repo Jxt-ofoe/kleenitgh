@@ -133,17 +133,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Only allow one video to play at a time
-  const allVideos = document.querySelectorAll('video');
-  allVideos.forEach(video => {
-    video.addEventListener('play', () => {
-      allVideos.forEach(v => {
-        if (v !== video) {
-          v.pause();
-        }
-      });
+  // Autoplay one gallery video at a time using IntersectionObserver
+  const galleryVideos = document.querySelectorAll('.gallery-grid video');
+
+  const playMostVisible = () => {
+    let bestVideo = null;
+    let bestRatio = 0;
+
+    galleryVideos.forEach(video => {
+      const rect = video.getBoundingClientRect();
+      const viewH = window.innerHeight || document.documentElement.clientHeight;
+      const visibleH = Math.min(rect.bottom, viewH) - Math.max(rect.top, 0);
+      const ratio = visibleH > 0 ? visibleH / rect.height : 0;
+
+      if (ratio > bestRatio) {
+        bestRatio = ratio;
+        bestVideo = video;
+      }
     });
-  });
+
+    galleryVideos.forEach(video => {
+      if (video === bestVideo && bestRatio > 0.3) {
+        if (video.paused) video.play().catch(() => {});
+      } else {
+        if (!video.paused) video.pause();
+      }
+    });
+  };
+
+  // Run on scroll and on load
+  window.addEventListener('scroll', playMostVisible, { passive: true });
+  playMostVisible();
 
   // Contact Form to WhatsApp
   const contactForm = document.getElementById('contact-form');
