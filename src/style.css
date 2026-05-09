@@ -47,6 +47,10 @@ ul {
   list-style: none;
 }
 
+.hidden-section {
+  display: none !important;
+}
+
 /* Layout Utilities */
 .container {
   max-width: 1200px;
@@ -193,7 +197,8 @@ ul {
   transition: var(--transition);
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
   width: 100%;
 }
 
@@ -905,4 +910,23 @@ ul {
   .section-padding { padding: 3rem 0; }
   .team-grid, .gallery-grid, .reviews-grid { grid-template-columns: 1fr; }
   .footer-content { grid-template-columns: 1fr; }
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  .service-card {
+    padding: 1rem 0.5rem;
+  }
+  .service-card h3 {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .service-card p {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+  .service-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
 }

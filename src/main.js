@@ -11,21 +11,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Smooth Scrolling for anchor links
+  // Main Navigation Tabs
+  const allSections = document.querySelectorAll('section');
+  const navLinksContainer = document.querySelector('.nav-links');
+
+  function activateTab(targetId) {
+    allSections.forEach(sec => {
+      sec.classList.add('hidden-section');
+    });
+
+    if (targetId === '#home') {
+      document.getElementById('home')?.classList.remove('hidden-section');
+    } else if (targetId === '#about') {
+      document.getElementById('about')?.classList.remove('hidden-section');
+      document.getElementById('mission')?.classList.remove('hidden-section');
+      document.getElementById('team')?.classList.remove('hidden-section');
+    } else {
+      const target = document.querySelector(targetId);
+      if (target) target.classList.remove('hidden-section');
+    }
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href') === targetId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    // Close hamburger menu if open
+    if (window.innerWidth <= 768 && navLinksContainer) {
+      navLinksContainer.style.display = 'none';
+    }
+    window.scrollTo(0, 0);
+  }
+
+  // Handle resize to fix navbar visibility on desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navLinksContainer) {
+      navLinksContainer.style.display = ''; // Clear inline style
+    }
+  });
+
+  // Initial load
+  const initialHash = window.location.hash || '#home';
+  activateTab(initialHash);
+
+  window.addEventListener('popstate', () => {
+    activateTab(window.location.hash || '#home');
+  });
+
+  // Handle anchor links as tabs
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
       
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        // adjust for navbar height
-        const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        });
+      const isTabLink = ['#home', '#about', '#services', '#gallery', '#reviews', '#contact'].includes(targetId);
+      
+      if (isTabLink) {
+        history.pushState(null, null, targetId);
+        activateTab(targetId);
+      } else {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
       }
     });
   });
