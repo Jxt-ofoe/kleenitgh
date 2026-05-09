@@ -29,7 +29,6 @@ html {
 body {
   background-color: var(--white);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -47,11 +46,7 @@ ul {
   list-style: none;
 }
 
-.hidden-section {
-  display: none !important;
-}
 
-/* Layout Utilities */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -207,6 +202,28 @@ ul {
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
 }
 
 /* Hero Section */
@@ -524,7 +541,7 @@ ul {
 /* Gallery Section */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
@@ -925,12 +942,6 @@ ul {
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    display: none; /* simple mobile menu handling */
-  }
-  .mobile-menu-btn {
-    display: block;
-  }
   .hero h1 { font-size: 2.5rem; }
   .hero-subtext { font-size: 1.2rem; }
   .hero-buttons { flex-direction: column; }
