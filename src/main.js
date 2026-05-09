@@ -221,42 +221,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Drive video: hover-to-play on desktop, autoplay-on-scroll on mobile
+  // Drive video: click to play
   const driveItems = document.querySelectorAll('.gallery-item[data-video]');
-  const isTouch = () => window.matchMedia('(hover: none)').matches;
 
-  function loadVideo(item) {
-    const iframe = item.querySelector('.drive-iframe');
-    if (!iframe.src) iframe.src = item.dataset.video;
-    item.classList.add('playing');
-  }
-
-  function unloadVideo(item) {
-    const iframe = item.querySelector('.drive-iframe');
-    iframe.src = '';
-    item.classList.remove('playing');
-  }
-
-  if (!isTouch()) {
-    // Desktop: hover to play, mouse leave to stop
-    driveItems.forEach(item => {
-      item.addEventListener('mouseenter', () => loadVideo(item));
-      item.addEventListener('mouseleave', () => unloadVideo(item));
+  driveItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const iframe = item.querySelector('.drive-iframe');
+      if (!iframe.src) iframe.src = item.dataset.video;
+      item.classList.add('playing');
     });
-  } else {
-    // Mobile: autoplay when scrolled into view
-    const videoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          loadVideo(entry.target);
-        } else {
-          unloadVideo(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    driveItems.forEach(item => videoObserver.observe(item));
-  }
+  });
 
   // Service Tab Switching
   const tabBtns = document.querySelectorAll('.tab-btn');
