@@ -221,17 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Drive video: click to play
-  const driveItems = document.querySelectorAll('.gallery-item[data-video]');
-
-  driveItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const iframe = item.querySelector('.drive-iframe');
-      if (!iframe.src) iframe.src = item.dataset.video;
-      item.classList.add('playing');
-    });
-  });
-
   // Service Tab Switching
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
