@@ -571,6 +571,33 @@ ul {
   transform: scale(1);
 }
 
+/* Video thumb overlay (hover-to-play / scroll-to-play) */
+.video-thumb {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: opacity 0.3s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.video-thumb i {
+  font-size: 2.8rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.gallery-item.playing .video-thumb {
+  opacity: 0;
+}
+
+.gallery-item.playing .drive-iframe {
+  pointer-events: auto;
+}
+
 /* Video Labels */
 .video-label {
   position: absolute;
