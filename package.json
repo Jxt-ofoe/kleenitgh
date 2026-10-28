@@ -6,9 +6,19 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "migrate": "node scripts/migrate.js",
+    "init-admin": "node scripts/init-admin.js",
+    "manage-admin": "node scripts/manage-admin.js",
+    "test:integration": "node scripts/test-integration.js"
   },
   "devDependencies": {
     "vite": "^8.0.9"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.9",
+    "jsonwebtoken": "^9.0.3"
   }
 }

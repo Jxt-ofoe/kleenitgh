@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Kleenit Ghana Limited</title>
+  <meta name="description" content="Kleenit Ghana Limited - Protected Administrator Booking Management Portal" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+  <link rel="stylesheet" href="/src/admin.css" />
+</head>
+
+<body class="admin-body">
+  <div id="admin-app">
+    <!-- Initial Loading State -->
+    <div id="app-loading" class="initial-loader">
+      <div class="loader-spinner"></div>
+      <p>Loading Kleenit Ghana Admin Portal...</p>
+    </div>
+
+    <!-- 1. LOGIN VIEW -->
+    <div id="view-login" class="login-container" style="display: none;">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="logo">
+            <span class="logo-icon"><i class="fa-solid fa-sparkles"></i></span>
+            Kleenit<span class="logo-accent">Ghana</span>
+          </div>
+          <h1 class="login-title">Administrator Portal</h1>
+          <p class="login-subtitle">Sign in to manage website bookings and customer inquiries.</p>
+        </div>
+
+        <div id="login-error-alert" class="alert-box alert-danger" style="display: none;" role="alert">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="login-error-message">Invalid credentials.</span>
+        </div>
+
+        <form id="admin-login-form" novalidate>
+          <div class="form-group">
+            <label for="admin-username">Admin Username or Email</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="admin-username" name="username" placeholder="e.g. admin@kleenitgh.com" required autocomplete="username" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="admin-password">Password</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="admin-password" name="password" placeholder="Enter your secure password" required autocomplete="current-password" />
+              <button type="button" id="btn-toggle-password" class="btn-icon-adornment" title="Toggle visibility">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-login-submit" class="btn btn-primary w-100">
+            <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> Sign In</span>
+            <span class="btn-loading" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...</span>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i> Return to Kleenit Ghana Website</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DASHBOARD VIEW -->
+    <div id="view-dashboard" class="dashboard-container" style="display: none;">
+      <!-- Top Navigation Bar -->
+      <header class="admin-navbar">
+        <div class="navbar-left">
+          <a href="#" class="logo">
+            <span class="logo-icon"><i class="fa-solid fa-sparkles"></i></span>
+            Kleenit<span class="logo-accent">Ghana</span>
+          </a>
+          <span class="admin-badge">Admin Portal</span>
+        </div>
+
+        <div class="navbar-right">
+          <div class="status-indicator" title="Turso Database Connected">
+            <span class="status-dot"></span>
+            <span class="status-label">Turso DB Connected</span>
+          </div>
+
+          <div class="user-profile">
+            <i class="fa-solid fa-circle-user avatar-icon"></i>
+            <div class="user-details">
+              <span id="user-display-name" class="user-name">Administrator</span>
+              <span id="user-display-email" class="user-email">admin@kleenitgh.com</span>
+            </div>
+          </div>
+
+          <a href="/" target="_blank" class="btn btn-sm btn-outline-nav" title="Open Public Website">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>View Site</span>
+          </a>
+
+          <button id="btn-logout" class="btn btn-sm btn-logout" title="Sign Out">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Dashboard Content -->
+      <main class="dashboard-main">
+        <!-- Overview Header -->
+        <div class="dashboard-header-row">
+          <div>
+            <h1 class="page-title">Bookings Management</h1>
+            <p class="page-subtitle">Track, filter, and respond to customer booking requests received from the website.</p>
+          </div>
+          <div class="header-actions">
+            <button id="btn-refresh-data" class="btn btn-sm btn-secondary" title="Refresh bookings data">
+              <i class="fa-solid fa-rotate"></i> Refresh Data
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 Metrics Overview Cards -->
+        <section class="stats-grid" aria-label="Booking statistics">
+          <div class="stat-card" data-status="all" role="button" tabindex="0" title="Click to view all bookings">
+            <div class="stat-icon icon-total"><i class="fa-solid fa-clipboard-list"></i></div>
+            <div class="stat-data">
+              <span class="stat-label">Total Requests</span>
+              <span id="stat-total" class="stat-val">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card" data-status="new" role="button" tabindex="0" title="Click to filter new bookings">
+            <div class="stat-icon icon-new"><i class="fa-solid fa-bell"></i></div>
+            <div class="stat-data">
+              <span class="stat-label">New Bookings</span>
+              <span id="stat-new" class="stat-val">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card" data-status="contacted" role="button" tabindex="0" title="Click to filter contacted customers">
+            <div class="stat-icon icon-contacted"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="stat-data">
+              <span class="stat-label">Contacted</span>
+              <span id="stat-contacted" class="stat-val">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card" data-status="confirmed" role="button" tabindex="0" title="Click to filter confirmed bookings">
+            <div class="stat-icon icon-confirmed"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="stat-data">
+              <span class="stat-label">Confirmed</span>
+              <span id="stat-confirmed" class="stat-val">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card" data-status="completed" role="button" tabindex="0" title="Click to filter completed bookings">
+            <div class="stat-icon icon-completed"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-data">
+              <span class="stat-label">Completed</span>
+              <span id="stat-completed" class="stat-val">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card" data-status="cancelled" role="button" tabindex="0" title="Click to filter cancelled bookings">
+            <div class="stat-icon icon-cancelled"><i class="fa-solid fa-ban"></i></div>
+            <div class="stat-data">
+              <span class="stat-label">Cancelled</span>
+              <span id="stat-cancelled" class="stat-val">0</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Search, Filter & Controls Bar -->
+        <section class="controls-panel">
+          <div class="controls-grid">
+            <!-- Search bar -->
+            <div class="search-wrap">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="filter-search" placeholder="Search by customer name, phone, or reference..." />
+              <button type="button" id="btn-clear-search" class="clear-btn" style="display: none;">&times;</button>
+            </div>
+
+            <!-- Status filter -->
+            <div class="filter-wrap">
+              <label for="filter-status">Status:</label>
+              <select id="filter-status">
+                <option value="all">All Statuses</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            <!-- Service filter -->
+            <div class="filter-wrap">
+              <label for="filter-service">Service:</label>
+              <select id="filter-service">
+                <option value="all">All Services</option>
+                <option value="Regular Home Cleaning">Regular Home Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move-in / Move-out Cleaning">Move-in / Move-out</option>
+                <option value="Upholstery & Carpet Cleaning">Upholstery & Carpet</option>
+                <option value="Mattress Cleaning">Mattress Cleaning</option>
+                <option value="Window Cleaning">Window Cleaning</option>
+                <option value="Tile & Grout Cleaning">Tile & Grout</option>
+                <option value="Kitchen Deep Cleaning">Kitchen Deep Cleaning</option>
+                <option value="Airbnb / Short-let Turnover">Airbnb Turnover</option>
+                <option value="Office Janitorial Service">Office Janitorial</option>
+                <option value="Post-construction Cleaning">Post-construction</option>
+                <option value="Fumigation & Pest Control">Fumigation & Pest Control</option>
+                <option value="Disinfection & Sanitization">Disinfection</option>
+                <option value="Medical Facility Cleaning">Medical Facility</option>
+              </select>
+            </div>
+
+            <!-- Date filter -->
+            <div class="filter-wrap">
+              <label for="filter-date">Date:</label>
+              <input type="date" id="filter-date" />
+            </div>
+
+            <!-- Reset filters -->
+            <button id="btn-reset-filters" class="btn btn-outline-reset" title="Reset all filters">
+              <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+            </button>
+          </div>
+        </section>
+
+        <!-- Bookings Table Section -->
+        <section class="table-card">
+          <!-- Active Filter Pill Bar -->
+          <div id="active-filters-bar" class="active-filters-bar" style="display: none;">
+            <span>Filtered by:</span>
+            <div id="filter-tags" class="filter-tags"></div>
+          </div>
+
+          <!-- Table Wrapper -->
+          <div class="table-responsive">
+            <table class="bookings-table">
+              <thead>
+                <tr>
+                  <th>Booking Ref</th>
+                  <th>Customer</th>
+                  <th>Service</th>
+                  <th>Preferred Date & Time</th>
+                  <th>Submitted At</th>
+                  <th>Source</th>
+                  <th>Status</th>
+                  <th>WhatsApp Handoff</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-table-body">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Loading state -->
+          <div id="table-loading" class="table-state-box" style="display: none;">
+            <div class="loader-spinner-sm"></div>
+            <p>Fetching bookings from Turso database...</p>
+          </div>
+
+          <!-- Empty state -->
+          <div id="table-empty" class="table-state-box" style="display: none;">
+            <i class="fa-regular fa-folder-open empty-icon"></i>
+            <h3>No Bookings Found</h3>
+            <p id="table-empty-desc">No bookings matched your filter criteria.</p>
+          </div>
+
+          <!-- Error state -->
+          <div id="table-error" class="table-state-box" style="display: none;">
+            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+            <h3>Failed to Load Bookings</h3>
+            <p id="table-error-desc">There was an issue connecting to the database.</p>
+            <button id="btn-retry-table" class="btn btn-sm btn-primary mt-2">Retry</button>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="table-footer">
+            <div class="pagination-info">
+              Showing <span id="page-start-count">0</span> to <span id="page-end-count">0</span> of <span id="total-bookings-count">0</span> bookings
+            </div>
+            <div class="pagination-controls">
+              <button id="btn-prev-page" class="btn-page" disabled>
+                <i class="fa-solid fa-chevron-left"></i> Previous
+              </button>
+              <span id="pagination-pages" class="pagination-pages">
+                Page <strong id="current-page-num">1</strong> of <strong id="total-pages-num">1</strong>
+              </span>
+              <button id="btn-next-page" class="btn-page" disabled>
+                Next <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- 3. BOOKING DETAILS MODAL -->
+    <div id="modal-booking-details" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <div class="modal-ref-wrap">
+              <span class="modal-badge-source">Website</span>
+              <h2 id="modal-ref-title" class="modal-title">KG-XXXXXX</h2>
+            </div>
+            <p id="modal-created-time" class="modal-subtitle">Submitted on ...</p>
+          </div>
+          <button id="btn-close-modal" class="modal-close-btn" aria-label="Close modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Customer Info -->
+          <div class="detail-section">
+            <h4 class="section-heading"><i class="fa-solid fa-user"></i> Customer Information</h4>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="item-label">Customer Name</span>
+                <span id="modal-customer-name" class="item-val font-semibold">-</span>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">Phone Number</span>
+                <div class="phone-item-wrap">
+                  <span id="modal-customer-phone" class="item-val">-</span>
+                  <a id="modal-link-call" href="#" class="btn-action-icon" title="Call Customer"><i class="fa-solid fa-phone"></i></a>
+                  <a id="modal-link-whatsapp" href="#" target="_blank" class="btn-action-icon btn-action-wa" title="Open WhatsApp Chat"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">Email Address</span>
+                <span id="modal-customer-email" class="item-val">-</span>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">Booking Source</span>
+                <span id="modal-booking-source" class="badge-source">Website</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service & Schedule Info -->
+          <div class="detail-section">
+            <h4 class="section-heading"><i class="fa-solid fa-sparkles"></i> Service & Schedule</h4>
+            <div class="detail-grid">
+              <div class="detail-item full-width">
+                <span class="item-label">Requested Service</span>
+                <span id="modal-service" class="item-val service-val font-semibold">-</span>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">Preferred Date</span>
+                <span id="modal-date" class="item-val">-</span>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">Preferred Time</span>
+                <span id="modal-time" class="item-val">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Message / Notes -->
+          <div class="detail-section">
+            <h4 class="section-heading"><i class="fa-solid fa-message"></i> Additional Details / Customer Notes</h4>
+            <div id="modal-message-box" class="message-box">
+              <p id="modal-message-text">No additional notes provided.</p>
+            </div>
+          </div>
+
+          <!-- WhatsApp Status & Timeline -->
+          <div class="detail-section">
+            <h4 class="section-heading"><i class="fa-solid fa-clock-rotate-left"></i> WhatsApp Handoff & Timestamps</h4>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="item-label">WhatsApp Handoff Attempt</span>
+                <span id="modal-whatsapp-status" class="item-val">-</span>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">Last Updated</span>
+                <span id="modal-updated-time" class="item-val">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Management -->
+          <div class="detail-section status-section">
+            <h4 class="section-heading"><i class="fa-solid fa-sliders"></i> Update Status</h4>
+            <div class="status-selector-row">
+              <select id="modal-select-status" class="status-select-lg">
+                <option value="new">New (Awaiting Review)</option>
+                <option value="contacted">Contacted (In Discussion)</option>
+                <option value="confirmed">Confirmed (Scheduled)</option>
+                <option value="completed">Completed (Service Done)</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <button id="btn-modal-save-status" class="btn btn-primary">
+                <span>Save Status</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a id="modal-btn-chat-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+          <button id="btn-modal-close-footer" class="btn btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast" style="display: none;" role="status">
+      <i id="toast-icon" class="fa-solid fa-circle-check"></i>
+      <span id="toast-msg">Operation completed successfully.</span>
+    </div>
+  </div>
+
+  <script type="module" src="/src/admin.js"></script>
+</body>
+
+</html>

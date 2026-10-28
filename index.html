@@ -456,11 +456,127 @@
               </div>
             </div>
             <div class="contact-form-container scroll-reveal delay-1">
-              <form class="contact-form" id="contact-form">
-                <input type="text" id="contact-name" placeholder="Your Name" required />
-                <input type="email" id="contact-email" placeholder="Your Email" required />
-                <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit" class="btn btn-primary w-100">Send Message</button>
+              <form class="contact-form" id="contact-form" novalidate>
+                <div class="form-title-wrap">
+                  <h3 class="form-title">Request a Booking / Quote</h3>
+                  <p class="form-subtitle">Fill in the details below. We save your booking immediately and connect with you on WhatsApp.</p>
+                </div>
+
+                <!-- Live Error Notification Banner -->
+                <div id="booking-error" class="form-alert form-alert-error" style="display: none;" role="alert">
+                  <div class="alert-content">
+                    <i class="fa-solid fa-circle-exclamation alert-icon"></i>
+                    <div>
+                      <strong class="alert-title">Booking could not be saved</strong>
+                      <p id="booking-error-text" class="alert-desc">Please check your details and try again.</p>
+                    </div>
+                  </div>
+                  <button type="button" class="btn-retry" id="btn-retry-booking">Retry</button>
+                </div>
+
+                <!-- Live Success Notification Modal / Box -->
+                <div id="booking-success" class="form-alert form-alert-success" style="display: none;" role="status">
+                  <i class="fa-solid fa-circle-check alert-icon"></i>
+                  <div>
+                    <strong class="alert-title">Booking Saved Successfully!</strong>
+                    <p class="alert-desc">Reference: <span id="booking-ref-display" class="booking-ref-badge"></span></p>
+                    <p class="alert-subtext">Opening WhatsApp now to confirm your schedule with our team...</p>
+                    <a id="btn-manual-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-whatsapp mt-2">
+                      <i class="fa-brands fa-whatsapp"></i> Open WhatsApp Now
+                    </a>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-name">Full Name <span class="required-star">*</span></label>
+                  <input type="text" id="contact-name" name="customer_name" placeholder="e.g. Kwesi Mensah" required />
+                  <span class="field-error" id="error-name"></span>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="contact-phone">Phone Number (WhatsApp) <span class="required-star">*</span></label>
+                    <input type="tel" id="contact-phone" name="customer_phone" placeholder="e.g. 054 402 6418" required />
+                    <span class="field-error" id="error-phone"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-email">Email Address <span class="text-muted">(Optional)</span></label>
+                    <input type="email" id="contact-email" name="customer_email" placeholder="e.g. kwesi@example.com" />
+                    <span class="field-error" id="error-email"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-service">Service Requested <span class="required-star">*</span></label>
+                  <select id="contact-service" name="service" required>
+                    <option value="" disabled selected>-- Select a Cleaning Service --</option>
+                    <optgroup label="Residential Services">
+                      <option value="Regular Home Cleaning">Regular Home Cleaning</option>
+                      <option value="Deep Cleaning">Deep Cleaning</option>
+                      <option value="Move-in / Move-out Cleaning">Move-in / Move-out Cleaning</option>
+                      <option value="Upholstery & Carpet Cleaning">Upholstery & Carpet Cleaning</option>
+                      <option value="Mattress Cleaning">Mattress Cleaning</option>
+                      <option value="Window Cleaning">Window Cleaning</option>
+                      <option value="Tile & Grout Cleaning">Tile & Grout Cleaning</option>
+                      <option value="Kitchen Deep Cleaning">Kitchen Deep Cleaning</option>
+                      <option value="Refrigerator/Oven Cleaning">Refrigerator/Oven Cleaning</option>
+                      <option value="Airbnb / Short-let Turnover">Airbnb / Short-let Turnover</option>
+                    </optgroup>
+                    <optgroup label="Commercial Services">
+                      <option value="Office Janitorial Service">Office Janitorial Service</option>
+                      <option value="Washroom Cleaning">Washroom Cleaning</option>
+                      <option value="Facade/Exterior Cleaning">Facade/Exterior Cleaning</option>
+                      <option value="Industrial/Warehouse Cleaning">Industrial/Warehouse Cleaning</option>
+                      <option value="Pressure Washing">Pressure Washing</option>
+                      <option value="Event Cleaning">Event Cleaning</option>
+                      <option value="Full-time Cleaner Outsourcing">Full-time Cleaner Outsourcing</option>
+                      <option value="Swimming Pool Cleaning">Swimming Pool Cleaning</option>
+                    </optgroup>
+                    <optgroup label="Specialized Services">
+                      <option value="Post-construction Cleaning">Post-construction Cleaning</option>
+                      <option value="Fumigation & Pest Control">Fumigation & Pest Control</option>
+                      <option value="Disinfection & Sanitization">Disinfection & Sanitization</option>
+                      <option value="Medical Facility Cleaning">Medical Facility Cleaning</option>
+                    </optgroup>
+                    <option value="Other / Custom Service">Other / Custom Cleaning Service</option>
+                  </select>
+                  <span class="field-error" id="error-service"></span>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="contact-date">Preferred Date <span class="text-muted">(Optional)</span></label>
+                    <input type="date" id="contact-date" name="booking_date" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-time">Preferred Time <span class="text-muted">(Optional)</span></label>
+                    <select id="contact-time" name="booking_time">
+                      <option value="">Any Time (Flexible)</option>
+                      <option value="Morning (8:00 AM - 12:00 PM)">Morning (8:00 AM - 12:00 PM)</option>
+                      <option value="Afternoon (12:00 PM - 4:00 PM)">Afternoon (12:00 PM - 4:00 PM)</option>
+                      <option value="Evening (4:00 PM - 7:00 PM)">Evening (4:00 PM - 7:00 PM)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-message">Additional Details / Space Description</label>
+                  <textarea id="contact-message" name="message" placeholder="Provide any details about the property (e.g., number of bedrooms, specific areas, timeline)..." rows="4"></textarea>
+                </div>
+
+                <button type="submit" id="booking-submit-btn" class="btn btn-primary w-100">
+                  <span class="btn-content-default">
+                    <i class="fa-solid fa-calendar-check"></i> Submit Booking & Open WhatsApp
+                  </span>
+                  <span class="btn-content-loading" style="display: none;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Saving Booking in Database...
+                  </span>
+                </button>
+                <p class="form-trust-note">
+                  <i class="fa-solid fa-shield-halved"></i> Your booking is securely recorded in our system before WhatsApp opens.
+                </p>
               </form>
             </div>
           </div>
