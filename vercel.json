@@ -3,6 +3,21 @@
   "framework": "vite",
   "buildCommand": "vite build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "kleenitgh.com"
+        }
+      ],
+      "destination": "https://www.kleenitgh.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" }
   ],
@@ -19,3 +34,4 @@
     }
   ]
 }
+

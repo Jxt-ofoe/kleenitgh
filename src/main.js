@@ -143,6 +143,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const refDisplay = document.getElementById('booking-ref-display');
   const manualWhatsAppBtn = document.getElementById('btn-manual-whatsapp');
 
+  // Auto-prefill service if specified on form or in URL
+  if (bookingForm) {
+    const prefillService = bookingForm.getAttribute('data-prefill-service');
+    const serviceSelect = document.getElementById('contact-service');
+    if (prefillService && serviceSelect) {
+      for (let i = 0; i < serviceSelect.options.length; i++) {
+        if (serviceSelect.options[i].value.toLowerCase() === prefillService.toLowerCase()) {
+          serviceSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    if (serviceParam && serviceSelect) {
+      for (let i = 0; i < serviceSelect.options.length; i++) {
+        if (serviceSelect.options[i].value.toLowerCase().includes(serviceParam.toLowerCase())) {
+          serviceSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
   let isSubmitting = false;
 
   function clearFieldErrors() {
@@ -227,6 +251,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set loading state
     setLoadingState(true);
 
+    // Promo Discount Flag
+    let promoNotes = '';
+    if (isPromoApplied) {
+      promoNotes = ' [Promo: 15% November Website Discount Applied (Code: NOV15)]';
+    }
+
+    const finalMessage = message ? (message + promoNotes) : (promoNotes ? promoNotes.trim() : undefined);
+
     const payload = {
       customer_name: customerName,
       customer_phone: customerPhone,
@@ -234,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       service,
       booking_date: bookingDate || undefined,
       booking_time: bookingTime || undefined,
-      message: message || undefined
+      message: finalMessage
     };
 
     try {
@@ -280,8 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
       waMessage += `🧹 *Service:* ${service}\n`;
       if (bookingDate) waMessage += `📅 *Date:* ${bookingDate}\n`;
       if (bookingTime) waMessage += `⏰ *Time:* ${bookingTime}\n`;
+      if (isPromoApplied) {
+        waMessage += `🎉 *Promotion:* 15% November Website Discount Applied (Code: NOV15)\n`;
+      }
       if (message) waMessage += `📝 *Notes:* ${message}\n`;
-      waMessage += `\nPlease confirm availability and details. Thank you!`;
+      waMessage += `\nPlease confirm availability and discounted quote. Thank you!`;
 
       const encodedText = encodeURIComponent(waMessage);
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
@@ -329,4 +364,129 @@ document.addEventListener('DOMContentLoaded', () => {
       handleBookingSubmit();
     });
   }
+
+  // ============================================================================
+  // NOVEMBER 15% DISCOUNT PROMOTION POPUP & FLOATING BADGE
+  // ============================================================================
+  const promoModal = document.getElementById('promo-popup-modal');
+  const promoFloatBadge = document.getElementById('promo-floating-badge');
+  const btnClosePromo = document.getElementById('btn-close-promo');
+  const btnDismissPromo = document.getElementById('btn-dismiss-promo');
+  const btnClaimPromo = document.getElementById('btn-claim-promo');
+  const btnCopyPromo = document.getElementById('btn-copy-promo');
+  const promoCodeText = document.getElementById('promo-code-text');
+  const promoAppliedBadge = document.getElementById('booking-promo-applied');
+  const btnRemovePromo = document.getElementById('btn-remove-promo');
+
+  let isPromoApplied = sessionStorage.getItem('kleenit_promo_applied') === 'true';
+
+  function updatePromoBadge() {
+    if (promoAppliedBadge) {
+      promoAppliedBadge.style.display = isPromoApplied ? 'flex' : 'none';
+    }
+  }
+
+  function showPromoModal() {
+    if (promoModal) {
+      promoModal.style.display = 'flex';
+    }
+  }
+
+  function hidePromoModal() {
+    if (promoModal) {
+      promoModal.style.display = 'none';
+    }
+  }
+
+  // Initial state check
+  updatePromoBadge();
+
+  // Auto-display popup after 2.5 seconds if not previously dismissed in this session
+  const promoDismissed = sessionStorage.getItem('kleenit_promo_dismissed');
+  if (!promoDismissed) {
+    setTimeout(() => {
+      showPromoModal();
+    }, 2500);
+  }
+
+  // Close / Dismiss handlers
+  if (btnClosePromo) {
+    btnClosePromo.addEventListener('click', () => {
+      hidePromoModal();
+      sessionStorage.setItem('kleenit_promo_dismissed', 'true');
+    });
+  }
+
+  if (btnDismissPromo) {
+    btnDismissPromo.addEventListener('click', () => {
+      hidePromoModal();
+      sessionStorage.setItem('kleenit_promo_dismissed', 'true');
+    });
+  }
+
+  if (promoModal) {
+    promoModal.addEventListener('click', (e) => {
+      if (e.target === promoModal) {
+        hidePromoModal();
+        sessionStorage.setItem('kleenit_promo_dismissed', 'true');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && promoModal.style.display === 'flex') {
+        hidePromoModal();
+      }
+    });
+  }
+
+  // Floating badge to reopen promo anytime
+  if (promoFloatBadge) {
+    promoFloatBadge.addEventListener('click', () => {
+      showPromoModal();
+    });
+  }
+
+  // Copy Promo Code
+  if (btnCopyPromo && promoCodeText) {
+    btnCopyPromo.addEventListener('click', () => {
+      navigator.clipboard.writeText(promoCodeText.textContent.trim()).then(() => {
+        btnCopyPromo.innerHTML = '<i class="fa-solid fa-check" style="color: #10b981;"></i>';
+        setTimeout(() => {
+          btnCopyPromo.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+  }
+
+  // Claim Promo Button -> Apply discount, scroll to booking form
+  if (btnClaimPromo) {
+    btnClaimPromo.addEventListener('click', () => {
+      isPromoApplied = true;
+      sessionStorage.setItem('kleenit_promo_applied', 'true');
+      sessionStorage.setItem('kleenit_promo_dismissed', 'true');
+      hidePromoModal();
+      updatePromoBadge();
+
+      // Smooth scroll to booking section
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+        // Focus name field
+        setTimeout(() => {
+          const nameInput = document.getElementById('contact-name');
+          if (nameInput) nameInput.focus();
+        }, 600);
+      }
+    });
+  }
+
+  // Remove applied promotion
+  if (btnRemovePromo) {
+    btnRemovePromo.addEventListener('click', () => {
+      isPromoApplied = false;
+      sessionStorage.removeItem('kleenit_promo_applied');
+      updatePromoBadge();
+    });
+  }
 });
+
