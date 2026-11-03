@@ -129,6 +129,43 @@
           </div>
         </div>
 
+        <section class="password-settings-card" aria-labelledby="password-settings-title">
+          <div class="password-settings-header">
+            <div>
+              <h2 id="password-settings-title">Change admin password</h2>
+              <p>Enter your current password and choose a new password with at least 8 characters.</p>
+            </div>
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          </div>
+          <div id="password-change-message" class="password-change-message" role="status" aria-live="polite" style="display: none;"></div>
+          <form id="admin-password-form" class="password-settings-form">
+            <div class="form-group">
+              <label for="current-admin-password">Current password</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                <input type="password" id="current-admin-password" name="currentPassword" autocomplete="current-password" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="new-admin-password">New password</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-key" aria-hidden="true"></i>
+                <input type="password" id="new-admin-password" name="newPassword" autocomplete="new-password" minlength="8" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="confirm-admin-password">Confirm new password</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-key" aria-hidden="true"></i>
+                <input type="password" id="confirm-admin-password" name="confirmPassword" autocomplete="new-password" minlength="8" required />
+              </div>
+            </div>
+            <button type="submit" id="btn-change-password" class="btn btn-primary">
+              <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Update password
+            </button>
+          </form>
+        </section>
+
         <!-- 6 Metrics Overview Cards -->
         <section class="stats-grid" aria-label="Booking statistics">
           <div class="stat-card" data-status="all" role="button" tabindex="0" title="Click to view all bookings">

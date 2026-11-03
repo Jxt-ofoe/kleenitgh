@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const userDisplayEmail = document.getElementById('user-display-email');
   const btnLogout = document.getElementById('btn-logout');
   const btnRefresh = document.getElementById('btn-refresh-data');
+  const passwordForm = document.getElementById('admin-password-form');
+  const currentPasswordInput = document.getElementById('current-admin-password');
+  const newPasswordInput = document.getElementById('new-admin-password');
+  const confirmPasswordInput = document.getElementById('confirm-admin-password');
+  const btnChangePassword = document.getElementById('btn-change-password');
+  const passwordChangeMessage = document.getElementById('password-change-message');
 
   // Stats Elements
   const statCards = document.querySelectorAll('.stat-card');
@@ -264,6 +270,50 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       handleLogoutLocal();
       showToast('Logged out successfully.');
+    });
+  }
+
+  if (passwordForm) {
+    passwordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      passwordChangeMessage.style.display = 'none';
+
+      if (newPasswordInput.value !== confirmPasswordInput.value) {
+        passwordChangeMessage.textContent = 'New password and confirmation do not match.';
+        passwordChangeMessage.className = 'password-change-message is-error';
+        passwordChangeMessage.style.display = 'block';
+        return;
+      }
+
+      btnChangePassword.disabled = true;
+      try {
+        const response = await apiFetch('/api/auth/change-password', {
+          method: 'POST',
+          body: JSON.stringify({
+            currentPassword: currentPasswordInput.value,
+            newPassword: newPasswordInput.value
+          })
+        });
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok || !data?.success) {
+          passwordChangeMessage.textContent = data?.error || 'Failed to change password.';
+          passwordChangeMessage.className = 'password-change-message is-error';
+          passwordChangeMessage.style.display = 'block';
+          return;
+        }
+
+        passwordForm.reset();
+        passwordChangeMessage.textContent = 'Password changed successfully.';
+        passwordChangeMessage.className = 'password-change-message is-success';
+        passwordChangeMessage.style.display = 'block';
+      } catch {
+        passwordChangeMessage.textContent = 'Network or server error while changing password.';
+        passwordChangeMessage.className = 'password-change-message is-error';
+        passwordChangeMessage.style.display = 'block';
+      } finally {
+        btnChangePassword.disabled = false;
+      }
     });
   }
 

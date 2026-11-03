@@ -498,6 +498,77 @@ button, input, select, textarea {
   font-size: 0.95rem;
 }
 
+.password-settings-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.75rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.password-settings-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.password-settings-header h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.password-settings-header p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.password-settings-header > i {
+  color: var(--primary);
+  font-size: 1.35rem;
+  padding-top: 0.2rem;
+}
+
+.password-settings-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: 1rem;
+}
+
+.password-settings-form .form-group {
+  margin-bottom: 0;
+}
+
+.password-settings-form .input-with-icon input {
+  padding: 0.7rem 0.8rem 0.7rem 2.5rem;
+}
+
+.password-settings-form .btn {
+  white-space: nowrap;
+}
+
+.password-change-message {
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.8rem;
+}
+
+.password-change-message.is-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.password-change-message.is-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
 /* ==============================================================================
    STATS OVERVIEW GRID
    ============================================================================== */
@@ -1288,6 +1359,9 @@ button, input, select, textarea {
   }
   .dashboard-main {
     padding: 1.25rem 1rem 3rem 1rem;
+  }
+  .password-settings-form {
+    grid-template-columns: 1fr;
   }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
