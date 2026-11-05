@@ -128,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // API CLIENT HELPERS
   // ============================================================================
   async function apiFetch(endpoint, options = {}) {
+  // Ensure cookies (admin_token) are sent on same‑origin requests
+  const defaultOptions = { credentials: 'include' };
+  const mergedOptions = { ...defaultOptions, ...options };
+  const headers = mergedOptions.headers || {};
+  headers['Content-Type'] = 'application/json';
+  mergedOptions.headers = headers;
+  const response = await fetch(endpoint, mergedOptions);
     const headers = options.headers || {};
     headers['Content-Type'] = 'application/json';
 
