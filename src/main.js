@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Promo Discount Flag
     let promoNotes = '';
     if (isPromoApplied) {
-      promoNotes = ' [Promo: 15% November Website Discount Applied (Code: NOV15)]';
+      promoNotes = ' [Promo: 10% November Website Discount Applied (Code: NOV10)]';
     }
 
     const finalMessage = message ? (message + promoNotes) : (promoNotes ? promoNotes.trim() : undefined);
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================================
-  // NOVEMBER 15% DISCOUNT PROMOTION POPUP & FLOATING BADGE
+  // NOVEMBER 10% DISCOUNT PROMOTION POPUP & FLOATING BADGE
   // ============================================================================
   const promoModal = document.getElementById('promo-popup-modal');
   const promoFloatBadge = document.getElementById('promo-floating-badge');

@@ -765,7 +765,7 @@ ${footerHtml}`;
 {
   const headHtml = renderHead({
     title: 'About Us | Kleenit Ghana Limited Accra',
-    description: 'Learn about Kleenit Ghana Limited, Accra’s detail-oriented cleaning and fumigation company operating since September 2019. 400+ projects completed.',
+    description: 'Learn about Kleenit Ghana Limited, Accra’s detail-oriented cleaning and fumigation company operating since September 2019. 1000+ projects completed.',
     canonicalPath: '/about',
     schemaObjects: [
       {
@@ -791,7 +791,7 @@ ${renderNavbar('about')}
         </ol>
       </nav>
       <h1 class="page-title">About Kleenit Ghana Limited</h1>
-      <p class="page-subtitle">Operating since September 2019 • 400+ projects completed • Serving customers nationwide across Ghana.</p>
+      <p class="page-subtitle">Operating since September 2019 • 1000+ projects completed • Serving customers nationwide across Ghana.</p>
     </div>
   </header>
 

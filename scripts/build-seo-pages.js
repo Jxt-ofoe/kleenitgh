@@ -16,7 +16,7 @@ const ADDRESS_STREET = '1 Flower Street, Dome Pillar 2';
 const ADDRESS_FULL = '1 Flower Street, Dome Pillar 2, Accra';
 const EMAIL_ADDRESS = 'kleenitgh@yahoo.com'; // User requested: do not replace the email
 const OPERATING_SINCE = 'September 2019';
-const PROJECTS_COMPLETED = '400+';
+const PROJECTS_COMPLETED = '1000+';
 const BASE_URL = 'https://www.kleenitgh.com';
 
 // Common LocalBusiness JSON-LD
@@ -196,13 +196,13 @@ function renderBookingForm(prefillService = '', formSubtitle = 'Fill in the form
             </div>
           </div>
 
-          <!-- 15% November Promo Applied Banner -->
+          <!-- 10% November Promo Applied Banner -->
           <div id="booking-promo-applied" class="promo-applied-badge" style="display: none;">
             <div class="promo-applied-content">
               <span class="promo-sparkle"><i class="fa-solid fa-gift"></i></span>
               <div>
-                <strong>15% November Discount Applied!</strong>
-                <p>Promo code <span class="promo-code-pill">NOV15</span> will be included with your booking request.</p>
+                <strong>10% November Discount Applied!</strong>
+                <p>Promo code <span class="promo-code-pill">NOV10</span> will be included with your booking request.</p>
               </div>
             </div>
             <button type="button" id="btn-remove-promo" class="btn-remove-promo" title="Remove promotion">&times;</button>
@@ -370,13 +370,13 @@ function renderFooter() {
   </a>
 
   <!-- Floating November Promo Badge -->
-  <button id="promo-floating-badge" class="promo-float-badge" aria-label="View November 15% Discount" title="Click to view November 15% Discount">
+  <button id="promo-floating-badge" class="promo-float-badge" aria-label="View November 10% Discount" title="Click to view November 10% Discount">
     <span class="badge-pulse"></span>
     <i class="fa-solid fa-gift"></i>
-    <span class="badge-label"><strong>15% OFF</strong> November Special</span>
+    <span class="badge-label"><strong>10% OFF</strong> November Special</span>
   </button>
 
-  <!-- 15% November Promotion Popup Modal -->
+  <!-- 10% November Promotion Popup Modal -->
   <div id="promo-popup-modal" class="promo-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="promo-title">
     <div class="promo-card">
       <button type="button" id="btn-close-promo" class="promo-close-btn" aria-label="Close promotion">&times;</button>
@@ -387,9 +387,9 @@ function renderFooter() {
 
       <div class="promo-header">
         <span class="promo-tagline">🍂 SPECIAL NOVEMBER PROMOTION</span>
-        <h2 id="promo-title" class="promo-headline">Get <span class="highlight-discount">15% OFF</span> All Cleaning Services!</h2>
+        <h2 id="promo-title" class="promo-headline">Get <span class="highlight-discount">10% OFF</span> All Cleaning Services!</h2>
         <p class="promo-desc">
-          Book any cleaning service directly through our website and enjoy an exclusive <strong>15% discount</strong> applied to your booking quote!
+          Book any cleaning service directly through our website and enjoy an exclusive <strong>10% discount</strong> applied to your booking quote!
         </p>
       </div>
 
@@ -411,7 +411,7 @@ function renderFooter() {
       <div class="promo-code-container">
         <span class="code-label">PROMO CODE:</span>
         <div class="code-box">
-          <span class="code-text" id="promo-code-text">NOV15</span>
+          <span class="code-text" id="promo-code-text">NOV10</span>
           <button type="button" id="btn-copy-promo" class="btn-copy-code" title="Copy code">
             <i class="fa-regular fa-copy"></i>
           </button>
@@ -420,7 +420,7 @@ function renderFooter() {
 
       <div class="promo-actions">
         <button type="button" id="btn-claim-promo" class="btn btn-primary btn-claim-promo">
-          <i class="fa-solid fa-gift"></i> Claim 15% Discount & Book Now
+          <i class="fa-solid fa-gift"></i> Claim 10% Discount & Book Now
         </button>
         <button type="button" id="btn-dismiss-promo" class="btn-dismiss-text">
           No thanks, maybe later
