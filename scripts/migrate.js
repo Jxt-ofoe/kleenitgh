@@ -35,6 +35,22 @@ async function runMigration() {
       console.log(`  ✓ Created/verified: ${targetName}`);
     }
 
+    const bookingColumns = await db.execute('PRAGMA table_info(bookings)');
+    const existingColumns = new Set(bookingColumns.rows.map(column => column.name));
+    for (const column of ['city', 'internal_notes']) {
+      if (!existingColumns.has(column)) {
+        await db.execute(`ALTER TABLE bookings ADD COLUMN ${column} TEXT`);
+        console.log(`  ✓ Added bookings.${column}`);
+      }
+    }
+
+    await db.execute({
+      sql: `INSERT OR IGNORE INTO booking_reference_counters (counter_name, last_value)
+            SELECT 'bookings', COALESCE(MAX(CAST(SUBSTR(booking_reference, 5) AS INTEGER)), 0)
+            FROM bookings
+            WHERE booking_reference GLOB 'KLN-[0-9]*'`
+    });
+
     console.log('✅ Turso database migration completed successfully!');
     process.exit(0);
   } catch (err) {

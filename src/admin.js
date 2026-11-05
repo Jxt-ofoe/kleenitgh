@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalLinkCall = document.getElementById('modal-link-call');
   const modalLinkWhatsApp = document.getElementById('modal-link-whatsapp');
   const modalCustomerEmail = document.getElementById('modal-customer-email');
+  const modalCity = document.getElementById('modal-city');
   const modalService = document.getElementById('modal-service');
   const modalDate = document.getElementById('modal-date');
   const modalTime = document.getElementById('modal-time');
@@ -84,7 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalUpdatedTime = document.getElementById('modal-updated-time');
   const modalSelectStatus = document.getElementById('modal-select-status');
   const btnModalSaveStatus = document.getElementById('btn-modal-save-status');
+  const modalBtnCall = document.getElementById('modal-btn-call');
   const modalBtnChatWhatsApp = document.getElementById('modal-btn-chat-whatsapp');
+  const modalInternalNotes = document.getElementById('modal-internal-notes');
+  const btnModalSaveNotes = document.getElementById('btn-modal-save-notes');
 
   // Toast
   const toast = document.getElementById('toast');
@@ -93,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // App State
   let currentUser = null;
-  let authToken = localStorage.getItem('admin_token') || null;
   let currentPage = 1;
   const pageSize = 15;
   let activeBookings = [];
@@ -125,9 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================================================
   async function apiFetch(endpoint, options = {}) {
     const headers = options.headers || {};
-    if (authToken) {
-      headers['Authorization'] = `Bearer ${authToken}`;
-    }
     headers['Content-Type'] = 'application/json';
 
     const response = await fetch(endpoint, {
@@ -183,9 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleLogoutLocal() {
-    authToken = null;
     currentUser = null;
-    localStorage.removeItem('admin_token');
     renderLoginView();
   }
 
@@ -240,11 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Login successful
-        authToken = data.token;
-        if (authToken) {
-          localStorage.setItem('admin_token', authToken);
-        }
+        // The HttpOnly session cookie authenticates subsequent requests.
         currentUser = data.user;
         showToast(`Welcome back, ${currentUser.name || currentUser.username}!`);
         renderDashboardView();
@@ -489,6 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>
             <strong>${escapeHtml(b.service)}</strong>
           </td>
+          <td>${escapeHtml(b.city || '-')}</td>
           <td>
             <span>${escapeHtml(scheduleFormatted)}</span>
           </td>
@@ -689,9 +684,11 @@ document.addEventListener('DOMContentLoaded', () => {
     modalCustomerName.textContent = booking.customer_name;
     modalCustomerPhone.textContent = booking.customer_phone;
     modalLinkCall.href = `tel:${booking.customer_phone}`;
+    modalBtnCall.href = `tel:${booking.customer_phone}`;
     modalLinkWhatsApp.href = getWhatsAppChatLink(booking);
 
     modalCustomerEmail.textContent = booking.customer_email || 'Not provided';
+    modalCity.textContent = booking.city || 'Not provided';
     modalService.textContent = booking.service;
     modalDate.textContent = booking.booking_date || 'Flexible / Not specified';
     modalTime.textContent = booking.booking_time || 'Flexible / Not specified';
@@ -705,6 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modalUpdatedTime.textContent = formatDate(booking.updated_at || booking.created_at);
     modalSelectStatus.value = booking.status;
     modalBtnChatWhatsApp.href = getWhatsAppChatLink(booking);
+    modalInternalNotes.value = booking.internal_notes || '';
 
     modal.style.display = 'flex';
   }
@@ -734,6 +732,32 @@ document.addEventListener('DOMContentLoaded', () => {
     btnModalSaveStatus.disabled = false;
     currentModalBooking.status = newStatus;
     loadBookings();
+  });
+
+  btnModalSaveNotes.addEventListener('click', async () => {
+    if (!currentModalBooking) return;
+
+    btnModalSaveNotes.disabled = true;
+    try {
+      const response = await apiFetch(`/api/admin/bookings/${currentModalBooking.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ internal_notes: modalInternalNotes.value })
+      });
+      const data = await response.json();
+      if (!response.ok || !data?.success) {
+        showToast(data?.error || 'Failed to save internal notes.', true);
+        return;
+      }
+
+      currentModalBooking.internal_notes = data.booking.internal_notes || '';
+      const activeBooking = activeBookings.find(booking => booking.id === currentModalBooking.id);
+      if (activeBooking) activeBooking.internal_notes = currentModalBooking.internal_notes;
+      showToast('Internal notes saved.');
+    } catch (err) {
+      showToast('Error saving internal notes.', true);
+    } finally {
+      btnModalSaveNotes.disabled = false;
+    }
   });
 
   // ============================================================================

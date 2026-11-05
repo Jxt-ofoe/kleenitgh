@@ -4,26 +4,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cleaning Services in Accra | Kleenit Ghana Limited</title>
+  <title>Cleaning Services Across Ghana | Kleenit Ghana Limited</title>
   <meta name="description"
-    content="Kleenit Ghana Limited provides top-tier residential, commercial office, and post-construction cleaning in Accra. Book online or call 054 402 6418." />
+    content="Kleenit Ghana Limited provides professional residential, commercial, and specialized cleaning services nationwide across Ghana. Book online or call 054 402 6418." />
   <link rel="canonical" href="https://www.kleenitgh.com/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.kleenitgh.com/" />
-  <meta property="og:title" content="Cleaning Services in Accra | Kleenit Ghana Limited" />
+  <meta property="og:title" content="Cleaning Services Across Ghana | Kleenit Ghana Limited" />
   <meta property="og:description"
-    content="Kleenit Ghana Limited provides top-tier residential, commercial office, and post-construction cleaning in Accra. Book online or call 054 402 6418." />
+    content="Kleenit Ghana Limited provides professional residential, commercial, and specialized cleaning services nationwide across Ghana. Book online or call 054 402 6418." />
   <meta property="og:image" content="https://www.kleenitgh.com/logo.jpg" />
   <meta property="og:locale" content="en_GH" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.kleenitgh.com/" />
-  <meta name="twitter:title" content="Cleaning Services in Accra | Kleenit Ghana Limited" />
+  <meta name="twitter:title" content="Cleaning Services Across Ghana | Kleenit Ghana Limited" />
   <meta name="twitter:description"
-    content="Kleenit Ghana Limited provides top-tier residential, commercial office, and post-construction cleaning in Accra. Book online or call 054 402 6418." />
+    content="Kleenit Ghana Limited provides professional residential, commercial, and specialized cleaning services nationwide across Ghana. Book online or call 054 402 6418." />
   <meta name="twitter:image" content="https://www.kleenitgh.com/logo.jpg" />
 
   <!-- Google Fonts -->
@@ -74,18 +74,10 @@
         "https://facebook.com/TODO_SOCIAL_LINK",
         "https://instagram.com/TODO_SOCIAL_LINK"
       ],
-      "areaServed": [
-        { "@type": "City", "name": "Accra" },
-        { "@type": "AdministrativeArea", "name": "Dome" },
-        { "@type": "AdministrativeArea", "name": "East Legon" },
-        { "@type": "AdministrativeArea", "name": "Cantonments" },
-        { "@type": "AdministrativeArea", "name": "Airport Residential Area" },
-        { "@type": "AdministrativeArea", "name": "Osu" },
-        { "@type": "AdministrativeArea", "name": "Spintex" },
-        { "@type": "AdministrativeArea", "name": "Tema" },
-        { "@type": "AdministrativeArea", "name": "Dzorwulu" },
-        { "@type": "AdministrativeArea", "name": "Labone" }
-      ]
+      "areaServed": {
+        "@type": "Country",
+        "name": "Ghana"
+      }
     },
     {
       "@context": "https://schema.org",
@@ -327,6 +319,14 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-light" aria-labelledby="ghana-coverage-title">
+    <div class="container text-center">
+      <h2 id="ghana-coverage-title" class="section-title">Serving Homes and Businesses Across Ghana</h2>
+      <p class="section-subtitle">Kleenit Ghana provides cleaning and fumigation services nationwide across all 16 regions. Tell us your city or town and our team will coordinate your booking.</p>
+      <a href="#contact" class="btn btn-primary">Book a Service Anywhere in Ghana</a>
     </div>
   </section>
 
@@ -574,7 +574,7 @@
                     <strong class="alert-title">Booking Saved Successfully!</strong>
                     <p class="alert-desc">Reference: <span id="booking-ref-display" class="booking-ref-badge"></span></p>
                     <p class="alert-subtext">Opening WhatsApp now to confirm your schedule with our team...</p>
-                    <a id="btn-manual-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-whatsapp mt-2">
+                    <a id="btn-manual-whatsapp" href="#" rel="noopener noreferrer" class="btn btn-sm btn-whatsapp mt-2">
                       <i class="fa-brands fa-whatsapp"></i> Open WhatsApp Now
                     </a>
                   </div>
@@ -653,6 +653,7 @@
                   <div class="form-group">
                     <label for="contact-date">Preferred Date <span class="text-muted">(Optional)</span></label>
                     <input type="date" id="contact-date" name="booking_date" />
+                    <span class="field-error" id="error-date"></span>
                   </div>
 
                   <div class="form-group">
@@ -667,8 +668,18 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="contact-city">Location / City <span class="text-muted">(Optional)</span></label>
+                  <input type="text" id="contact-city" name="city" placeholder="e.g. East Legon, Accra" maxlength="120" />
+                </div>
+
+                <div class="form-group">
                   <label for="contact-message">Additional Details / Space Description</label>
                   <textarea id="contact-message" name="message" placeholder="Provide any details about the property (e.g., number of bedrooms, specific areas, timeline)..." rows="4"></textarea>
+                </div>
+
+                <div class="booking-honeypot" aria-hidden="true">
+                  <label for="contact-website">Leave this field empty</label>
+                  <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
                 </div>
 
                 <button type="submit" id="booking-submit-btn" class="btn btn-primary w-100">
@@ -758,20 +769,11 @@
         </ul>
       </div>
 
-      <!-- Col 4: Service Areas in Accra -->
+      <!-- Col 4: Nationwide Coverage -->
       <div class="footer-col">
-        <h4>Areas Served in Accra</h4>
-        <ul class="footer-links-list">
-          <li><a href="/areas/dome">Dome & Dome Pillar 2 (Office)</a></li>
-          <li><a href="/areas/east-legon">East Legon</a></li>
-          <li><a href="/areas/cantonments">Cantonments</a></li>
-          <li><a href="/areas/airport-residential">Airport Residential Area</a></li>
-          <li><a href="/areas/osu">Osu</a></li>
-          <li><a href="/areas/spintex">Spintex Road</a></li>
-          <li><a href="/areas/tema">Tema & Communities</a></li>
-          <li><a href="/areas/dzorwulu">Dzorwulu</a></li>
-          <li><a href="/areas/labone">Labone</a></li>
-        </ul>
+        <h4>Serving All of Ghana</h4>
+        <p>Our cleaning and fumigation teams serve homes and businesses nationwide across Ghana's 16 regions.</p>
+        <a href="/contact">Book service anywhere in Ghana</a>
       </div>
     </div>
 

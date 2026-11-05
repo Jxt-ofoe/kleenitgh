@@ -17,6 +17,37 @@ function parseArgs() {
 }
 
 function prompt(query, hideInput = false) {
+  if (hideInput && process.stdin.isTTY && process.stdin.setRawMode) {
+    process.stdout.write(query);
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+
+    return new Promise(resolve => {
+      let answer = '';
+      const onData = chunk => {
+        const character = chunk.toString('utf8');
+        if (character === '\r' || character === '\n') {
+          process.stdin.setRawMode(false);
+          process.stdin.pause();
+          process.stdin.removeListener('data', onData);
+          process.stdout.write('\n');
+          resolve(answer.trim());
+        } else if (character === '\u0003') {
+          process.stdin.setRawMode(false);
+          process.stdin.pause();
+          process.stdin.removeListener('data', onData);
+          process.stdout.write('\n');
+          resolve('');
+        } else if (character === '\u0008' || character === '\u007f') {
+          answer = answer.slice(0, -1);
+        } else if (character.length === 1) {
+          answer += character;
+        }
+      };
+      process.stdin.on('data', onData);
+    });
+  }
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -58,7 +89,7 @@ async function initAdmin() {
   }
 
   if (!password) {
-    password = await prompt('Enter a secure password (min 8 chars): ');
+    password = await prompt('Enter a secure password (min 8 chars): ', true);
   }
   if (!password || password.length < 8) {
     console.error('❌ Password must be at least 8 characters long.');

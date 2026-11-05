@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isSubmitting = false;
 
   function clearFieldErrors() {
-    ['name', 'phone', 'email', 'service'].forEach(id => {
+    ['name', 'phone', 'email', 'service', 'date'].forEach(id => {
       const errEl = document.getElementById(`error-${id}`);
       if (errEl) errEl.textContent = '';
       const inputEl = document.getElementById(`contact-${id}`);
@@ -183,6 +183,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (errEl) errEl.textContent = errorMsg;
     const inputEl = document.getElementById(`contact-${fieldId}`);
     if (inputEl) inputEl.classList.add('input-invalid');
+  }
+
+  function normalizeGhanaPhone(phone) {
+    let digits = phone.replace(/\D/g, '');
+    if (digits.startsWith('00')) digits = digits.slice(2);
+    if (digits.startsWith('233')) {
+      digits = digits.slice(3);
+    } else if (digits.startsWith('0')) {
+      digits = digits.slice(1);
+    }
+    return /^[2-5]\d{8}$/.test(digits) ? `+233${digits}` : '';
   }
 
   function setLoadingState(loading) {
@@ -208,17 +219,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const phoneInput = document.getElementById('contact-phone');
     const emailInput = document.getElementById('contact-email');
     const serviceInput = document.getElementById('contact-service');
+    const cityInput = document.getElementById('contact-city');
     const dateInput = document.getElementById('contact-date');
     const timeInput = document.getElementById('contact-time');
     const messageInput = document.getElementById('contact-message');
+    const honeypotInput = document.getElementById('contact-website');
 
     const customerName = nameInput ? nameInput.value.trim() : '';
     const customerPhone = phoneInput ? phoneInput.value.trim() : '';
     const customerEmail = emailInput ? emailInput.value.trim() : '';
     const service = serviceInput ? serviceInput.value.trim() : '';
+    const city = cityInput ? cityInput.value.trim() : '';
     const bookingDate = dateInput ? dateInput.value.trim() : '';
     const bookingTime = timeInput ? timeInput.value.trim() : '';
     const message = messageInput ? messageInput.value.trim() : '';
+    const customerPhoneInternational = normalizeGhanaPhone(customerPhone);
 
     // Frontend validation
     let hasError = false;
@@ -228,9 +243,8 @@ document.addEventListener('DOMContentLoaded', () => {
       hasError = true;
     }
 
-    const cleanPhoneDigits = customerPhone.replace(/\D/g, '');
-    if (!customerPhone || cleanPhoneDigits.length < 7) {
-      setFieldError('phone', 'Please enter a valid phone number (at least 7 digits).');
+    if (!customerPhoneInternational) {
+      setFieldError('phone', 'Please enter a valid Ghanaian phone number.');
       hasError = true;
     }
 
@@ -241,6 +255,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (customerEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
       setFieldError('email', 'Please enter a valid email address.');
+      hasError = true;
+    }
+
+    const parsedDate = bookingDate ? new Date(`${bookingDate}T00:00:00Z`) : null;
+    if (bookingDate && (
+      !/^\d{4}-\d{2}-\d{2}$/.test(bookingDate)
+      || Number.isNaN(parsedDate.getTime())
+      || parsedDate.toISOString().slice(0, 10) !== bookingDate
+    )) {
+      setFieldError('date', 'Please enter a valid preferred date.');
       hasError = true;
     }
 
@@ -261,12 +285,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const payload = {
       customer_name: customerName,
-      customer_phone: customerPhone,
+      customer_phone: customerPhoneInternational,
       customer_email: customerEmail || undefined,
       service,
+      city: city || undefined,
       booking_date: bookingDate || undefined,
       booking_time: bookingTime || undefined,
-      message: finalMessage
+      message: finalMessage,
+      website: honeypotInput ? honeypotInput.value : ''
     };
 
     try {
@@ -292,55 +318,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Success: Database confirmed the save!
       const bookingRef = result.booking_reference;
 
-      // Show success feedback
       if (refDisplay) refDisplay.textContent = bookingRef;
       if (successBanner) {
         successBanner.style.display = 'flex';
-        successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
-      // Build WhatsApp prefilled message
-      const whatsappNumber = '233544026418';
-      let waMessage = `Hello Kleenit Ghana,\n\nI have booked a service through your website.\n\n`;
-      waMessage += `📋 *Booking Reference:* ${bookingRef}\n`;
-      waMessage += `👤 *Name:* ${customerName}\n`;
-      waMessage += `📞 *Phone:* ${customerPhone}\n`;
-      if (customerEmail) waMessage += `✉️ *Email:* ${customerEmail}\n`;
-      waMessage += `🧹 *Service:* ${service}\n`;
-      if (bookingDate) waMessage += `📅 *Date:* ${bookingDate}\n`;
-      if (bookingTime) waMessage += `⏰ *Time:* ${bookingTime}\n`;
-      if (isPromoApplied) {
-        waMessage += `🎉 *Promotion:* 15% November Website Discount Applied (Code: NOV15)\n`;
-      }
-      if (message) waMessage += `📝 *Notes:* ${message}\n`;
-      waMessage += `\nPlease confirm availability and discounted quote. Thank you!`;
+      const waMessage = `Hello Kleenit Ghana, my name is ${customerName}. I’d like to book ${service} in ${city || 'Accra'} on ${bookingDate || 'a flexible date'} at ${bookingTime || 'any time'}. Ref: ${bookingRef}.`;
+      const whatsappUrl = `https://wa.me/233544026418?text=${encodeURIComponent(waMessage)}`;
 
-      const encodedText = encodeURIComponent(waMessage);
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
-
-      // Update manual fallback link
       if (manualWhatsAppBtn) {
         manualWhatsAppBtn.href = whatsappUrl;
       }
 
-      // Record WhatsApp handoff attempt in backend
       fetch('/api/bookings/track-whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ booking_reference: bookingRef })
       }).catch(err => console.warn('Could not record WhatsApp handoff event:', err));
 
-      // Attempt to open WhatsApp in a new tab
-      setTimeout(() => {
-        window.open(whatsappUrl, '_blank');
-      }, 300);
-
-      // Reset form fields after confirmed save
-      bookingForm.reset();
-      setLoadingState(false);
+      window.location.href = whatsappUrl;
 
     } catch (err) {
       console.error('Booking submission network error:', err);
@@ -489,4 +487,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-

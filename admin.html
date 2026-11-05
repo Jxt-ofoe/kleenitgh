@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard | Kleenit Ghana Limited</title>
   <meta name="description" content="Kleenit Ghana Limited - Protected Administrator Booking Management Portal" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -291,6 +292,7 @@
                   <th>Booking Ref</th>
                   <th>Customer</th>
                   <th>Service</th>
+                  <th>City</th>
                   <th>Preferred Date & Time</th>
                   <th>Submitted At</th>
                   <th>Source</th>
@@ -354,7 +356,7 @@
           <div>
             <div class="modal-ref-wrap">
               <span class="modal-badge-source">Website</span>
-              <h2 id="modal-ref-title" class="modal-title">KG-XXXXXX</h2>
+              <h2 id="modal-ref-title" class="modal-title">KLN-0001</h2>
             </div>
             <p id="modal-created-time" class="modal-subtitle">Submitted on ...</p>
           </div>
@@ -381,6 +383,10 @@
               <div class="detail-item">
                 <span class="item-label">Email Address</span>
                 <span id="modal-customer-email" class="item-val">-</span>
+              </div>
+              <div class="detail-item">
+                <span class="item-label">City</span>
+                <span id="modal-city" class="item-val">-</span>
               </div>
               <div class="detail-item">
                 <span class="item-label">Booking Source</span>
@@ -414,6 +420,13 @@
             <div id="modal-message-box" class="message-box">
               <p id="modal-message-text">No additional notes provided.</p>
             </div>
+          </div>
+
+          <div class="detail-section">
+            <h4 class="section-heading"><i class="fa-solid fa-note-sticky"></i> Internal Notes</h4>
+            <label class="item-label" for="modal-internal-notes">Notes for your team (not shared with the customer)</label>
+            <textarea id="modal-internal-notes" rows="4" maxlength="5000" placeholder="Notes for your team (not shared with the customer)"></textarea>
+            <button type="button" id="btn-modal-save-notes" class="btn btn-secondary">Save Notes</button>
           </div>
 
           <!-- WhatsApp Status & Timeline -->
@@ -450,8 +463,11 @@
         </div>
 
         <div class="modal-footer">
+          <a id="modal-btn-call" href="#" class="btn btn-secondary">
+            <i class="fa-solid fa-phone"></i> Call
+          </a>
           <a id="modal-btn-chat-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
-            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+            <i class="fa-brands fa-whatsapp"></i> Message on WhatsApp
           </a>
           <button id="btn-modal-close-footer" class="btn btn-secondary">Close</button>
         </div>

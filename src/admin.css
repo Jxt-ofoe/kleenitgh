@@ -1308,6 +1308,18 @@ button, input, select, textarea {
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
+.detail-section textarea {
+  display: block;
+  width: 100%;
+  min-height: 7rem;
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font: inherit;
+  resize: vertical;
+}
+
 /* ==============================================================================
    TOAST NOTIFICATION
    ============================================================================== */

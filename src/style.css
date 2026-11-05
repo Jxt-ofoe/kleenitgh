@@ -839,6 +839,14 @@ ul {
   background-color: #fff5f5;
 }
 
+.booking-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .field-error {
   color: #ef4444;
   font-size: 0.8rem;
@@ -2123,5 +2131,4 @@ ul {
   border-radius: 4px;
   margin-top: 0.5rem;
 }
-
 

@@ -27,7 +27,7 @@ const coreServices = [
     title: 'Home Cleaning Services Accra | Kleenit Ghana Limited',
     description: 'Trusted home cleaning in Accra by Kleenit Ghana Limited. Professional weekly, bi-weekly, and recurring housekeeping. Call 054 402 6418.',
     h1: 'Professional Home Cleaning Services in Accra',
-    subtitle: 'Reliable, scrupulous residential housekeeping tailored to your home, schedule, and family life in Greater Accra.',
+    subtitle: 'Reliable, scrupulous residential housekeeping tailored to your home, schedule, and family life anywhere in Ghana.',
     image: '/pic2.jpg',
     imageAlt: 'Kleenit Ghana Limited team members deep cleaning a residential living room in Accra',
     whatsIncluded: [
@@ -433,7 +433,7 @@ const secondaryServices = [
     title: 'Commercial Cleaning Accra | Kleenit Ghana',
     description: 'Commercial and industrial facility cleaning services in Accra. Tailored maintenance programs for retail, warehouses, and banks. Call 054 402 6418.',
     h1: 'Commercial Facility Cleaning Services in Accra',
-    subtitle: 'Turnkey facility sanitation for shopping malls, warehouses, banks, showrooms, and industrial facilities in Greater Accra.',
+    subtitle: 'Turnkey facility sanitation for shopping malls, warehouses, banks, showrooms, and industrial facilities across Ghana.',
     image: '/auditorium-cleaning.jpg',
     imageAlt: 'Commercial facility and warehouse cleaning in Accra by Kleenit Ghana Limited',
     whatsIncluded: [
@@ -482,192 +482,6 @@ const secondaryServices = [
       'Waste carting and eco-conscious disposal coordination'
     ],
     whoItsFor: 'Event planners, wedding organizers, banquet hall managers, conference hosts, and private party organizers.'
-  }
-];
-
-// ============================================================================
-// AREA PAGES DATA (9 Neighborhoods in Greater Accra)
-// ============================================================================
-const areaPages = [
-  {
-    slug: 'dome',
-    url: '/areas/dome',
-    name: 'Dome & Dome Pillar 2',
-    title: 'Cleaning Services in Dome Accra | Kleenit Ghana',
-    description: 'Professional home, office, and fumigation cleaning services in Dome and Dome Pillar 2, Accra by Kleenit Ghana Limited. Call 054 402 6418.',
-    h1: 'Professional Cleaning Services in Dome & Dome Pillar 2, Accra',
-    subtitle: 'Direct local service from our primary headquarters at 1 Flower Street, Dome Pillar 2. Rapid dispatch for homes, offices, and residential compounds.',
-    highlights: [
-      'Immediate, same-day response from our headquarters at 1 Flower Street, Dome Pillar 2',
-      'Complete residential housekeeping, deep cleaning, and compound power washing',
-      'Fumigation and pest eradication for Dome residential compounds and business sites',
-      'Post-renovation and post-construction cleaning for newly developed apartments'
-    ],
-    faq: [
-      { q: 'Where is your primary office located in Dome?', a: 'Our office is located at 1 Flower Street, Dome Pillar 2, Accra, available by appointment.' },
-      { q: 'How quickly can cleaners arrive at my Dome residence?', a: 'Because our central operations hub is in Dome Pillar 2, we can frequently accommodate same-day or priority next-day bookings.' },
-      { q: 'Do you clean compounds and driveways in Dome?', a: 'Yes, we provide pressure washing for paved driveways, compound walls, and tile flooring across Dome.' }
-    ]
-  },
-  {
-    slug: 'east-legon',
-    url: '/areas/east-legon',
-    name: 'East Legon',
-    title: 'Cleaning Services East Legon | Kleenit Ghana',
-    description: 'Top-rated home cleaning, office janitorial, and fumigation in East Legon, Accra. Reliable, scrupulous cleaning teams. Call 054 402 6418.',
-    h1: 'Cleaning Services in East Legon, Accra',
-    subtitle: 'Premium residential housekeeping, luxury short-let turnover, and corporate office janitorial services in prestigious East Legon.',
-    highlights: [
-      'Specialized care for high-end luxury villas, multi-story residences, and executive duplexes',
-      'Rapid Airbnb turnover cleaning for short-term rental investors along Lagos Avenue & Mensah Wood',
-      'Corporate janitorial maintenance for embassies, tech firms, and commercial complexes',
-      'Upholstery and delicate rug steam cleaning preserving fine interior furnishings'
-    ],
-    faq: [
-      { q: 'Do you service residential villas in East Legon?', a: 'Yes, we regularly service multi-bedroom villas, townhouses, and luxury compounds throughout East Legon.' },
-      { q: 'Can you handle Airbnb turnovers in East Legon between guest stays?', a: 'Yes, we provide fast 3-to-4 hour turnovers between check-outs and check-ins.' },
-      { q: 'Are your cleaners trained to handle high-end appliances and surfaces?', a: 'Yes, our staff is trained on delicate granite countertops, marble floors, and luxury appliances.' }
-    ]
-  },
-  {
-    slug: 'cantonments',
-    url: '/areas/cantonments',
-    name: 'Cantonments',
-    title: 'Cleaning Services Cantonments | Kleenit Ghana',
-    description: 'Premium residential and embassy facility cleaning in Cantonments, Accra by Kleenit Ghana Limited. Disinfection and deep cleaning. Call 054 402 6418.',
-    h1: 'Cleaning Services in Cantonments, Accra',
-    subtitle: 'Discreet, detail-oriented cleaning for diplomatic residences, luxury apartments, and corporate offices in Cantonments.',
-    highlights: [
-      'Vetted, security-cleared cleaning professionals suited for diplomatic and executive residences',
-      'Hospital-grade surface disinfection and deep hygiene sanitization',
-      'Move-in and move-out preparation for expatriates and corporate executives',
-      'Window cleaning and exterior facade washdown for gated community townhomes'
-    ],
-    faq: [
-      { q: 'Do your cleaners comply with security clearance protocols in Cantonments?', a: 'Yes, all our staff carry official company ID badges, have verified backgrounds, and follow strict estate security rules.' },
-      { q: 'Do you offer scheduled weekly housekeeping in Cantonments?', a: 'Yes, we offer recurring weekly, bi-weekly, or monthly cleaning contracts tailored to your schedule.' },
-      { q: 'Can you clean post-construction properties in Cantonments?', a: 'Yes, we frequently prepare newly built luxury developments and renovated duplexes for tenancy handover.' }
-    ]
-  },
-  {
-    slug: 'airport-residential',
-    url: '/areas/airport-residential',
-    name: 'Airport Residential Area',
-    title: 'Cleaning Airport Residential | Kleenit Ghana',
-    description: 'Elite cleaning services in Airport Residential Area, Accra. Luxury apartment turnovers, office janitorial, and deep sanitization. Call 054 402 6418.',
-    h1: 'Cleaning Services in Airport Residential Area, Accra',
-    subtitle: 'Impeccable housekeeping and commercial cleaning for high-rise apartment towers, private homes, and corporate offices.',
-    highlights: [
-      'Turnkey cleaning for luxury high-rise developments along Senchi and Patrice Lumumba roads',
-      'Daily and after-hours corporate office janitorial maintenance',
-      'Same-day Airbnb short-let turnovers with linen replacement and restocking reports',
-      'Deep sofa, mattress, and floor restoration'
-    ],
-    faq: [
-      { q: 'Do you clean penthouse suites and high-rise apartments in Airport Residential?', a: 'Yes, our crews are experienced with multi-level apartments, balconies, and high-rise condos.' },
-      { q: 'Can you work weekends in Airport Residential Area?', a: 'Yes, we operate Monday through Saturday with flexible booking slots to fit your weekend schedule.' },
-      { q: 'How do you bill for recurring office cleaning in Airport Residential?', a: 'We provide structured monthly billing with detailed attendance and supervisory inspection logs.' }
-    ]
-  },
-  {
-    slug: 'osu',
-    url: '/areas/osu',
-    name: 'Osu',
-    title: 'Cleaning Services Osu Accra | Kleenit Ghana',
-    description: 'Expert Airbnb turnover cleaning, commercial office, and residential cleaning in Osu, Accra. Flexible scheduling. Call 054 402 6418.',
-    h1: 'Cleaning Services in Osu, Accra',
-    subtitle: 'Fast-response cleaning for bustling Airbnb rentals, boutique hospitality venues, and retail spaces in vibrant Osu.',
-    highlights: [
-      'High-speed turnover cleaning for short-stay apartments near Oxford Street',
-      'Commercial kitchen deep cleaning and degreasing for cafes and dining spots',
-      'Eco-friendly fumigation and pest control for heritage and modern buildings',
-      'Pre-event and post-event cleanup for private celebrations and brand activations'
-    ],
-    faq: [
-      { q: 'How quickly can you turn over an Airbnb in Osu?', a: 'We can complete standard apartment turnovers in 2.5 to 3.5 hours between guest shifts.' },
-      { q: 'Do you offer pest control and fumigation in Osu?', a: 'Yes, we provide targeted eradication for roaches, bed bugs, and rodents in residential and commercial spaces.' },
-      { q: 'Can you provide emergency spill or event cleaning in Osu?', a: 'Yes, contact us on WhatsApp at 054 402 6418 for prompt dispatch.' }
-    ]
-  },
-  {
-    slug: 'spintex',
-    url: '/areas/spintex',
-    name: 'Spintex Road',
-    title: 'Cleaning Services Spintex Road | Kleenit Ghana',
-    description: 'Dependable residential and commercial cleaning services along Spintex Road, Accra. Post-construction, home, and office care. Call 054 402 6418.',
-    h1: 'Cleaning Services on Spintex Road, Accra',
-    subtitle: 'Thorough, reliable cleaning for gated estates, commercial distribution hubs, and family residences along the Spintex corridor.',
-    highlights: [
-      'Harmattan dust control and complete residential housekeeping for gated communities',
-      'Industrial and warehouse floor scrubbing for Spintex commercial zones',
-      'Move-in and tenancy turnover cleaning for houses and apartments',
-      'Comprehensive tile, grout, and driveway pressure washing'
-    ],
-    faq: [
-      { q: 'Do you service gated estates along Spintex Road?', a: 'Yes, we regularly clean homes in estates along Spintex, Sakumono, and Kasstower corridors.' },
-      { q: 'Can you clean large commercial warehouses on Spintex Road?', a: 'Yes, we deploy specialized auto-scrubbers and industrial equipment for commercial facilities.' },
-      { q: 'Do you bring your own water and cleaning solutions?', a: 'Our teams bring complete industrial cleaning equipment and specialized chemical supplies.' }
-    ]
-  },
-  {
-    slug: 'tema',
-    url: '/areas/tema',
-    name: 'Tema & Communities',
-    title: 'Cleaning Services Tema | Kleenit Ghana Limited',
-    description: 'Professional industrial, warehouse, office, and home cleaning services in Tema and surrounding communities. Call 054 402 6418 today.',
-    h1: 'Cleaning Services in Tema & Communities',
-    subtitle: 'Heavy-duty industrial cleaning, corporate office janitorial, and residential housekeeping across Tema Communities 1 through 25.',
-    highlights: [
-      'Industrial facility, warehouse, and logistics depot deep cleaning',
-      'Corporate office janitorial contracts for shipping lines, manufacturing firms, and banks',
-      'Residential deep cleaning and pest fumigation for Tema homes',
-      'Exterior facade and hard-standing high-pressure washing'
-    ],
-    faq: [
-      { q: 'Which Tema communities do you service?', a: 'We service all Tema communities, including Community 1 through 25, Sakumono, and the Industrial Area.' },
-      { q: 'Do you handle heavy factory and warehouse cleaning in Tema?', a: 'Yes, we have specialized heavy-duty equipment for degreasing, industrial dust collection, and scrub-downs.' },
-      { q: 'Can you provide long-term janitorial outsourcing in Tema?', a: 'Yes, we supply managed full-time cleaning staff with dedicated site supervision.' }
-    ]
-  },
-  {
-    slug: 'dzorwulu',
-    url: '/areas/dzorwulu',
-    name: 'Dzorwulu',
-    title: 'Cleaning Services Dzorwulu | Kleenit Ghana',
-    description: 'Corporate office janitorial, residential cleaning, and fumigation services in Dzorwulu, Accra by Kleenit Ghana Limited. Call 054 402 6418.',
-    h1: 'Cleaning Services in Dzorwulu, Accra',
-    subtitle: 'Tailored cleaning for corporate headquarters, modern residential villas, and medical clinics in central Dzorwulu.',
-    highlights: [
-      'Convenient proximity to our Dome Pillar 2 hub for fast dispatch across Dzorwulu',
-      'Corporate janitorial services for multinational offices and tech startups',
-      'Residential deep cleaning, mattress sanitization, and upholstery care',
-      'Medical facility and dental clinic hospital-grade sanitization'
-    ],
-    faq: [
-      { q: 'How far is your team from Dzorwulu?', a: 'Our operations base is located just minutes away in Dome Pillar 2, allowing rapid dispatch to Dzorwulu.' },
-      { q: 'Can you clean corporate offices on weekends in Dzorwulu?', a: 'Yes, we provide weekend and after-hours commercial janitorial services.' },
-      { q: 'Do you offer sofa and rug steam cleaning in Dzorwulu?', a: 'Yes, our upholstery technicians bring portable steam extraction machines right to your home or office.' }
-    ]
-  },
-  {
-    slug: 'labone',
-    url: '/areas/labone',
-    name: 'Labone',
-    title: 'Cleaning Services Labone | Kleenit Ghana',
-    description: 'Scrupulous residential cleaning, short-let maintenance, and fumigation services in Labone, Accra. Book online or call 054 402 6418.',
-    h1: 'Cleaning Services in Labone, Accra',
-    subtitle: 'Meticulous housekeeping, boutique workspace sanitation, and guest-ready apartment turnovers in quiet, leafy Labone.',
-    highlights: [
-      'Detail-oriented housekeeping for private townhouses and executive flats',
-      'Airbnb turnover cleaning with linen changes and bathroom sanitization',
-      'Safe, low-odor pest control and fumigation protecting residential homes',
-      'Window washing and garden patio pressure cleaning'
-    ],
-    faq: [
-      { q: 'Do you clean homes in Labone on a recurring basis?', a: 'Yes, we offer weekly, bi-weekly, or monthly recurring housekeeping visits.' },
-      { q: 'Can you service boutique creative agencies and offices in Labone?', a: 'Yes, we provide custom office cleaning schedules designed for boutique agencies and studios.' },
-      { q: 'How do I book a cleaning session in Labone?', a: 'You can submit a booking request through our website form or message us directly on WhatsApp at 054 402 6418.' }
-    ]
   }
 ];
 
@@ -757,7 +571,7 @@ ${navHtml}
           <!-- Section 1: Overview & Who It's For -->
           <h2>Who This Service Is For in Accra</h2>
           <p>${s.whoItsFor}</p>
-          <p>At <strong>${COMPANY_NAME}</strong>, we have been delivering professional cleaning solutions in Accra since ${OPERATING_SINCE}, with over ${PROJECTS_COMPLETED} successful projects completed. We understand the specific challenges facing properties in Greater Accra, including dust from seasonal Harmattan winds, humidity, and rapid urban growth.</p>
+          <p>At <strong>${COMPANY_NAME}</strong>, we have been delivering professional cleaning solutions since ${OPERATING_SINCE}, with over ${PROJECTS_COMPLETED} successful projects completed. Based in Accra, our mobile teams serve homes and businesses nationwide across Ghana's 16 regions.</p>
 
           <!-- Section 2: What's Included -->
           <h2>What's Included in Our ${s.h1}</h2>
@@ -795,12 +609,8 @@ ${navHtml}
             </div>`).join('')}
           </div>
 
-          <!-- Section 5: Neighborhood Availability -->
-          <h2>Service Areas Available in Greater Accra</h2>
-          <p>We provide prompt dispatch for our ${s.h1.toLowerCase()} across major residential and commercial districts, including:</p>
-          <div class="area-pills-grid">
-            ${areaPages.map(a => `<a href="${a.url}" class="area-pill"><i class="fa-solid fa-location-dot"></i> ${a.name}</a>`).join('')}
-          </div>
+          <h2>${s.h1} Across Ghana</h2>
+          <p>We serve homes and businesses nationwide across Ghana's 16 regions. Share your location when booking so our team can coordinate service in your area.</p>
         </div>
 
         <!-- Sidebar Column -->
@@ -920,12 +730,7 @@ ${navHtml}
           </ul>
 
           <h2>Why Choose Kleenit Ghana Limited</h2>
-          <p>We pride ourselves on attention to detail, punctuality, and trustworthy personnel. Whether you are situated in Dome, East Legon, Cantonments, Osu, or Tema, our mobile cleaning teams are equipped to handle spaces of any scale.</p>
-
-          <h2>Areas We Serve in Greater Accra</h2>
-          <div class="area-pills-grid">
-            ${areaPages.map(a => `<a href="${a.url}" class="area-pill"><i class="fa-solid fa-location-dot"></i> ${a.name}</a>`).join('')}
-          </div>
+          <p>We pride ourselves on attention to detail, punctuality, and trustworthy personnel. Our mobile teams serve homes and businesses throughout Ghana; include your city or town when booking so we can coordinate your service.</p>
         </div>
 
         <aside class="service-sidebar">
@@ -950,134 +755,6 @@ ${navHtml}
 ${footerHtml}`;
 
   writePage(`services/${sub.slug}/index.html`, html);
-}
-
-// ============================================================================
-// BUILD AREA PAGES (9 Pages under /areas/)
-// ============================================================================
-for (const a of areaPages) {
-  const breadcrumbsSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": BASE_URL },
-      { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": `${BASE_URL}/services` },
-      { "@type": "ListItem", "position": 3, "name": a.name, "item": `${BASE_URL}${a.url}` }
-    ]
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": a.faq.map(f => ({
-      "@type": "Question",
-      "name": f.q,
-      "acceptedAnswer": { "@type": "Answer", "text": f.a }
-    }))
-  };
-
-  const headHtml = renderHead({
-    title: a.title,
-    description: a.description,
-    canonicalPath: a.url,
-    schemaObjects: [breadcrumbsSchema, faqSchema]
-  });
-
-  const navHtml = renderNavbar();
-  const formHtml = renderBookingForm('Regular Home Cleaning', `Book trusted cleaning in ${a.name}. Our team confirms availability promptly.`);
-  const footerHtml = renderFooter();
-
-  const html = `${headHtml}
-${navHtml}
-
-  <header class="page-hero">
-    <div class="container page-hero-content">
-      <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
-        <ol class="breadcrumbs">
-          <li><a href="/">Home</a></li>
-          <li><a href="/services">Areas</a></li>
-          <li aria-current="page">${a.name}</li>
-        </ol>
-      </nav>
-      <h1 class="page-title">${a.h1}</h1>
-      <p class="page-subtitle">${a.subtitle}</p>
-      <div class="page-hero-ctas">
-        <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book in ${a.name}</a>
-        <a href="tel:0544026418" class="btn btn-outline" style="color: #ffffff; border-color: #ffffff;"><i class="fa-solid fa-phone"></i> 054 402 6418</a>
-        <a href="${WHATSAPP_LINK}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-hero"><i class="fa-brands fa-whatsapp"></i> WhatsApp Dispatch</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="section-padding">
-    <div class="container">
-      <div class="service-content-grid">
-        <div class="service-main-content">
-          <h2>Cleaning Services Available in ${a.name}</h2>
-          <p>Residents, property investors, and corporate facilities in <strong>${a.name}</strong> trust <strong>${COMPANY_NAME}</strong> for punctual, high-standard cleaning and pest control. Headquartered at <strong>${ADDRESS_FULL}</strong>, our mobile teams provide responsive dispatch across the entire neighborhood.</p>
-
-          <ul class="feature-checklist">
-            ${a.highlights.map(item => `
-            <li class="feature-checklist-item">
-              <i class="fa-solid fa-circle-check feature-check-icon"></i>
-              <span>${item}</span>
-            </li>`).join('')}
-          </ul>
-
-          <h2>Available Services in ${a.name}</h2>
-          <p>We deliver our full range of cleaning solutions directly to properties in ${a.name}:</p>
-          <div class="process-steps-grid">
-            <div class="process-step-card">
-              <h4>Residential Cleaning</h4>
-              <p>Weekly housekeeping, deep cleaning, and move-in preparations for villas and apartments.</p>
-              <a href="/home-cleaning" class="btn btn-sm btn-outline mt-2">Learn More</a>
-            </div>
-            <div class="process-step-card">
-              <h4>Office Janitorial</h4>
-              <p>Scheduled daily and after-hours commercial workplace maintenance.</p>
-              <a href="/office-janitorial" class="btn btn-sm btn-outline mt-2">Learn More</a>
-            </div>
-            <div class="process-step-card">
-              <h4>Post-Construction</h4>
-              <p>Cement haze, dust, and paint drip removal for newly completed buildings.</p>
-              <a href="/post-construction-cleaning" class="btn btn-sm btn-outline mt-2">Learn More</a>
-            </div>
-            <div class="process-step-card">
-              <h4>Fumigation</h4>
-              <p>Certified eradication of cockroaches, bed bugs, termites, and rodents.</p>
-              <a href="/fumigation-pest-control" class="btn btn-sm btn-outline mt-2">Learn More</a>
-            </div>
-          </div>
-
-          <h2>Frequently Asked Questions in ${a.name}</h2>
-          <div class="faq-container">
-            ${a.faq.map(f => `
-            <div class="faq-card">
-              <div class="faq-question">
-                <i class="fa-solid fa-circle-question faq-icon"></i>
-                <span>${f.q}</span>
-              </div>
-              <p class="faq-answer">${f.a}</p>
-            </div>`).join('')}
-          </div>
-
-          <h2>Other Accra Neighborhoods We Serve</h2>
-          <div class="area-pills-grid">
-            ${areaPages.filter(item => item.slug !== a.slug).map(item => `
-            <a href="${item.url}" class="area-pill"><i class="fa-solid fa-location-dot"></i> ${item.name}</a>`).join('')}
-          </div>
-        </div>
-
-        <aside class="service-sidebar">
-          ${formHtml}
-        </aside>
-      </div>
-    </div>
-  </main>
-
-${footerHtml}`;
-
-  writePage(`areas/${a.slug}/index.html`, html);
 }
 
 // ============================================================================
@@ -1114,7 +791,7 @@ ${renderNavbar('about')}
         </ol>
       </nav>
       <h1 class="page-title">About Kleenit Ghana Limited</h1>
-      <p class="page-subtitle">Operating since September 2019 • 400+ Projects Completed Across Greater Accra.</p>
+      <p class="page-subtitle">Operating since September 2019 • 400+ projects completed • Serving customers nationwide across Ghana.</p>
     </div>
   </header>
 
@@ -1123,7 +800,7 @@ ${renderNavbar('about')}
       <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
         <div class="about-text">
           <h2 class="section-title">Cleanliness Meets Excellence</h2>
-          <p>Welcome to <strong>${COMPANY_NAME}</strong>, where cleanliness meets excellence. Operating since <strong>${OPERATING_SINCE}</strong>, we bring over 6 years of proven professional cleaning experience transforming spaces and maintaining pristine environments for homeowners, embassies, developers, and corporate enterprises across Greater Accra.</p>
+          <p>Welcome to <strong>${COMPANY_NAME}</strong>, where cleanliness meets excellence. Operating since <strong>${OPERATING_SINCE}</strong>, we bring over 6 years of proven professional cleaning experience for homeowners, embassies, developers, and corporate enterprises throughout Ghana. Based in Accra, our mobile teams coordinate service nationwide across all 16 regions.</p>
           <p>From our headquarters at <strong>${ADDRESS_FULL}</strong>, our vetted, disciplined staff is trained to deliver scrupulously clean results with uncompromised attention to detail.</p>
           
           <div class="stats-box" style="margin: 2rem 0; padding: 1.5rem; background: #f0fdfa; border-radius: 12px; border-left: 4px solid var(--primary-color);">
@@ -1203,7 +880,7 @@ ${renderNavbar('services')}
         </ol>
       </nav>
       <h1 class="page-title">Cleaning & Fumigation Services in Accra</h1>
-      <p class="page-subtitle">Comprehensive, reliable residential, commercial, and specialized hygiene solutions across Greater Accra.</p>
+      <p class="page-subtitle">Comprehensive, reliable residential, commercial, and specialized hygiene solutions available nationwide across Ghana.</p>
     </div>
   </header>
 
@@ -1238,12 +915,10 @@ ${renderNavbar('services')}
         </div>`).join('')}
       </div>
 
-      <!-- Service Areas Section -->
-      <h2 class="section-title">Accra Service Locations</h2>
-      <p class="section-subtitle" style="margin-bottom: 1.5rem;">We service all major neighborhoods across the Greater Accra Region.</p>
-      <div class="area-pills-grid" style="margin-bottom: 4rem;">
-        ${areaPages.map(a => `<a href="${a.url}" class="area-pill"><i class="fa-solid fa-location-dot"></i> ${a.name}</a>`).join('')}
-      </div>
+      <section class="service-coverage" aria-label="Nationwide service coverage">
+        <h2 class="section-title">Cleaning Services Across Ghana</h2>
+        <p class="section-subtitle">We serve homes and businesses nationwide across Ghana's 16 regions. Share your city or town when booking so our team can coordinate service in your area.</p>
+      </section>
     </div>
   </main>
 
@@ -1422,4 +1097,4 @@ ${renderFooter()}`;
   writePage('contact/index.html', html);
 }
 
-console.log('All 29 secondary & core SEO pages generated successfully!');
+console.log('All service, directory, and contact pages generated successfully!');

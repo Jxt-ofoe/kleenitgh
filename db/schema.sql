@@ -10,9 +10,11 @@ CREATE TABLE IF NOT EXISTS bookings (
   customer_phone TEXT NOT NULL,
   customer_email TEXT,
   service TEXT NOT NULL,
+  city TEXT,
   booking_date TEXT,
   booking_time TEXT,
   message TEXT,
+  internal_notes TEXT,
   booking_source TEXT NOT NULL DEFAULT 'website',
   status TEXT NOT NULL DEFAULT 'new', -- 'new', 'contacted', 'confirmed', 'completed', 'cancelled'
   whatsapp_opened_at TEXT,
@@ -27,6 +29,12 @@ CREATE INDEX IF NOT EXISTS idx_bookings_created_at ON bookings (created_at DESC)
 CREATE INDEX IF NOT EXISTS idx_bookings_customer_phone ON bookings (customer_phone);
 CREATE INDEX IF NOT EXISTS idx_bookings_source ON bookings (booking_source);
 CREATE INDEX IF NOT EXISTS idx_bookings_service ON bookings (service);
+
+-- Atomic counter for readable, sequential booking references.
+CREATE TABLE IF NOT EXISTS booking_reference_counters (
+  counter_name TEXT PRIMARY KEY,
+  last_value INTEGER NOT NULL
+);
 
 -- Administrators table
 CREATE TABLE IF NOT EXISTS admins (
