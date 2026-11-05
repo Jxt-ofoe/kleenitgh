@@ -128,27 +128,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // API CLIENT HELPERS
   // ============================================================================
   async function apiFetch(endpoint, options = {}) {
-  // Ensure cookies (admin_token) are sent on same‑origin requests
-  const defaultOptions = { credentials: 'include' };
-  const mergedOptions = { ...defaultOptions, ...options };
-  const headers = mergedOptions.headers || {};
-  headers['Content-Type'] = 'application/json';
-  mergedOptions.headers = headers;
-  const response = await fetch(endpoint, mergedOptions);
-    const headers = options.headers || {};
+    // Ensure cookies (admin_token) are sent on same‑origin requests
+    const defaultOptions = { credentials: 'include' };
+    const mergedOptions = { ...defaultOptions, ...options };
+    const headers = mergedOptions.headers || {};
     headers['Content-Type'] = 'application/json';
-
-    const response = await fetch(endpoint, {
-      ...options,
-      headers
-    });
-
+    mergedOptions.headers = headers;
+    const response = await fetch(endpoint, mergedOptions);
     if (response.status === 401) {
       // Session expired or unauthenticated
       handleLogoutLocal();
       throw new Error('Unauthorized');
     }
-
     return response;
   }
 
