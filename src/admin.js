@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tableEmpty = document.getElementById('table-empty');
   const tableEmptyDesc = document.getElementById('table-empty-desc');
   const tableError = document.getElementById('table-error');
+  const tableErrorDesc = document.getElementById('table-error-desc');
   const btnRetryTable = document.getElementById('btn-retry-table');
 
   // Pagination Elements
@@ -435,6 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tableLoading.style.display = 'none';
 
       if (!res.ok || !data || !data.success) {
+        tableErrorDesc.textContent = data?.error || `The server returned HTTP ${res.status}.`;
         tableError.style.display = 'flex';
         return;
       }
@@ -454,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       if (err.message !== 'Unauthorized') {
         tableLoading.style.display = 'none';
+        tableErrorDesc.textContent = 'Unable to reach the admin API. Check the deployment and network, then retry.';
         tableError.style.display = 'flex';
       }
     }
